@@ -110,7 +110,7 @@ public class EmailValidator {
                         labelLength++;
                     } else if (isLetterOrDigit(ch)) {
                         labelLength++;
-                        if (labelLength > 63) {
+                        if (labelLength > 64) {
                             return false;
                         }
                     } else {
