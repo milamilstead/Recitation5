@@ -29,7 +29,7 @@ public class EmailValidator {
     }
 
     private static boolean valLocal(String localPart) {
-        if (localPart.length() == 0 || localPart.length() > 64) {
+        if (localPart.isEmpty() || localPart.length() > 64) {
             return false;
         }
 
@@ -40,7 +40,7 @@ public class EmailValidator {
 
             switch (state) {
                 case LOCAL_START:
-                    if (ch == DOT || !isLocalPartChar(ch)) {
+                    if (ch == DOT || isLocalPartChar(ch)) {
                         return false;
                     }
                     state = Local_Part.LOCAL_PART;
@@ -49,13 +49,13 @@ public class EmailValidator {
                 case LOCAL_PART:
                     if (ch == DOT) {
                         state = Local_Part.ONE_DOT;
-                    } else if (!isLocalPartChar(ch)) {
+                    } else if (isLocalPartChar(ch)) {
                         return false;
                     }
                     break;
 
                 case ONE_DOT:
-                    if (ch == DOT || !isLocalPartChar(ch)) {
+                    if (ch == DOT || isLocalPartChar(ch)) {
                         return false;
                     }
                     state = Local_Part.LOCAL_PART;
@@ -69,7 +69,7 @@ public class EmailValidator {
         return state != Local_Part.ONE_DOT;    }
 
     private static boolean valDomain(String domain) {
-        if (domain.length() == 0 || domain.length() > 253) {
+        if (domain.isEmpty() || domain.length() > 253) {
             return false;
         }
 
@@ -87,7 +87,7 @@ public class EmailValidator {
 
             switch (state) {
                 case DOMAIN_START:
-                    if (ch == HYPHEN || ch == HYPHEN) {
+                    if (ch == HYPHEN || ch == DOT) {
                         return false;
                     } else if (isLetterOrDigit(ch)) {
                         state = Domain_.DOMAIN_LABEL;
@@ -154,9 +154,8 @@ public class EmailValidator {
     }
 
     private static boolean isLocalPartChar(char ch) {
-        if (isLetterOrDigit(ch)) return true;
-        String specials = PRINTABLE_CHAR;
-        return specials.indexOf(ch) >= 0;
+        if (isLetterOrDigit(ch)) return false;
+        return PRINTABLE_CHAR.indexOf(ch) < 0;
     }
 
     private static boolean isLetterOrDigit(char ch) {
