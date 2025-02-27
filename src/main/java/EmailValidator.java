@@ -8,14 +8,14 @@ public class EmailValidator {
         LOCAL_START,
         LOCAL_PART,
         ONE_DOT ,
-        INVALID
+        
     }
     private enum Domain_{
         DOMAIN_START,
         DOMAIN_LABEL,
         DOMAIN_HYPHEN,
         DOMAIN_DOT,
-        INVALID
+
     }
     public static boolean isEmailValid(String email){
         int atLocation = email.indexOf(AT);
