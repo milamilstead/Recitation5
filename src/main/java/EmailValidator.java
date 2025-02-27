@@ -61,8 +61,6 @@ public class EmailValidator {
                     state = Local_Part.LOCAL_PART;
                     break;
 
-                case INVALID:
-                    return false;
             }
         }
 
@@ -145,8 +143,6 @@ public class EmailValidator {
                     }
                     break;
 
-                case INVALID:
-                    return false;
             }
         }
 
